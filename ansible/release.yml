@@ -3,6 +3,10 @@
   tasks:
 
 
+    - community.docker.docker_network:
+        name: devops-example
+
+
     - community.docker.docker_container:
         name: app
         image: "sergei3333/my-app-devops:{{ version }}"
@@ -10,9 +14,23 @@
         restart_policy: always
 
         state: started
+        networks:
+          - name: devops-example
 
         ports:
           - 3000:3000
         env:
           NODE_ENV: production
         image_name_mismatch: recreate
+
+
+    - community.docker.docker_container:
+        name: caddy
+        image: "sergei3333/my-app-devops-caddy:{{ version }}"
+        restart_policy: always
+        state: started
+        networks:
+          - name: devops-example
+        ports:
+          - 80:80
+          - 443:443
