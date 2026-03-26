@@ -1,4 +1,4 @@
-localhost, my-app-devops.test {
+158.160.18.213, localhost, my-app-devops.test {
 	tls internal
 
 	handle /images/* {
