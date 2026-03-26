@@ -1,5 +1,9 @@
 - hosts: all
   gather_facts: no
+  vars:
+    server_messages:
+      web1: "Hello from web1 server!"
+      web2: "Greetings from web2 server!"
   tasks:
 
 
@@ -21,6 +25,7 @@
           - 3000:3000
         env:
           NODE_ENV: production
+          SERVER_MESSAGE: "{{ server_messages[inventory_hostname] }}"
         image_name_mismatch: recreate
 
 
