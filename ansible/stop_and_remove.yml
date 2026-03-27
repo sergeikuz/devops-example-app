@@ -1,0 +1,30 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Ensure no conflicting containers exist
+      block:
+        - name: List containers matching 'my-app-devops*' by name
+          command: docker ps -a --filter "name=my-app-devops" --format "{{ '{{' }} .Names {{ '}}' }}"
+          register: container_names
+          changed_when: false
+
+        - name: Remove all matching containers by name
+          community.docker.docker_container:
+            name: "{{ item }}"
+            state: absent
+          loop: "{{ container_names.stdout_lines | default([]) }}"
+          when: container_names.stdout_lines | length > 0
+          ignore_errors: true
+
+        - name: Confirm no containers with 'my-app-devops' pattern exist
+          community.docker.docker_container_info:
+            name: my-app-devops
+          register: final_check
+          changed_when: false
+      rescue:
+        - name: Handle cleanup failure
+          debug:
+            msg: |
+              Failed to clean up containers with 'my-app-devops' pattern.
+              Please check manually:
+                docker ps -a | grep my-app-devops
