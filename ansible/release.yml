@@ -4,6 +4,8 @@
     server_messages:
       web1: "Hello from web1 server!"
       web2: "Greetings from web2 server!"
+      web3: "Greetings from web3 server!"
+
   tasks:
 
 

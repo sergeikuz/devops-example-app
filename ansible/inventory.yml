@@ -3,6 +3,11 @@ all:
     webservers:
       hosts:
         web1:
-          ansible_host: 178.154.192.135
+          ansible_host: 51.250.123.100
         web2:
-          ansible_host: 213.165.216.149
+          ansible_host: 130.193.62.83
+        web3:
+          ansible_host: 89.232.188.149
+      vars:
+        ansible_user: sergei
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
