@@ -24,7 +24,7 @@
           - name: devops-example
 
         ports:
-          - 3000:3000
+
         env:
           NODE_ENV: production
           SERVER_MESSAGE: "{{ server_messages[inventory_hostname] }}"
