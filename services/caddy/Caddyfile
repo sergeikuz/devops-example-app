@@ -1,4 +1,8 @@
 localhost, my-app-devops.test {
+    # Автоматически редиректим HTTP на HTTPS
+    redir https://{host}{uri} 301
+
+    # Конфигурация для HTTPS (порт 443)
     tls internal
 
     handle /images/* {
