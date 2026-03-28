@@ -1,7 +1,14 @@
+# HTTP-сервер для Health Check (порт 80)
+:80 {
+    respond /health "OK" 200
+    log {
+        format json
+    }
+}
+
+# HTTPS-сервер для основного приложения (порт 443)
 :443 {
     tls internal
-
-    respond /health "OK" 200
 
     handle /images/* {
         file_server
