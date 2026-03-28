@@ -1,9 +1,7 @@
-:80 {
-    redir https://{host}{uri} 301
-}
-
 :443 {
     tls internal
+
+    respond /health "OK" 200
 
     handle /images/* {
         file_server
